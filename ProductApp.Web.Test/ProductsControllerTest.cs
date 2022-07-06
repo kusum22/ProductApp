@@ -29,7 +29,7 @@ namespace ProductApp.Web.Test
         [Fact]
         public async void Index_ActionExecutes_ReturnView()
         {
-            var result = await _productsController.Index();
+            var result = await _productsController.Index(null, null);
 
             Assert.IsType<ViewResult>(result);
         }
@@ -39,7 +39,7 @@ namespace ProductApp.Web.Test
         {
             _mockRepository.Setup(repo => repo.GetAll()).ReturnsAsync(_products);
 
-            var result = await _productsController.Index();
+            var result = await _productsController.Index(null, null);
 
             var viewResult = Assert.IsType<ViewResult>(result);
 

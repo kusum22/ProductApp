@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductApp.Web.Models;
 using ProductApp.Web.Repository;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProductApp.Web.Controllers
@@ -15,9 +16,24 @@ namespace ProductApp.Web.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            return View(await _repository.GetAll());
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
+            var products = await _repository.GetAll();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                //TODO: Implement
+            }
+
+            switch (sortOrder)
+            {
+                //TODO: Implement
+                default:
+                    products = products.OrderBy(s => s.Name);
+                    break;
+            }
+            return View(products);
         }
 
         // GET: Products/Details/5
