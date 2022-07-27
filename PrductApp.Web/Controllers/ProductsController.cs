@@ -23,12 +23,17 @@ namespace ProductApp.Web.Controllers
             var products = await _repository.GetAll();
             if (!string.IsNullOrEmpty(searchString))
             {
-                //TODO: Implement
+                //TODO: Implement  searching criteria added
+                products = products.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper()));
             }
 
             switch (sortOrder)
             {
-                //TODO: Implement
+                //TODO: Implement sorting implemented
+               
+                case "Price":
+                    products = products.OrderBy(s => s.Price);
+                    break;
                 default:
                     products = products.OrderBy(s => s.Name);
                     break;
